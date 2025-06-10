@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cẩm Nang Ngữ Pháp Tiếng Anh Tương Tác (Hoàn Chỉnh)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4; /* Calm Harmony Neutral: Off-white */
+            color: #3C3C3C; /* Calm Harmony Neutral: Dark Gray */
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .nav-link.active {
+            background-color: #E7E5E4; /* Calm Harmony Neutral: Light Gray */
+            border-left-color: #0d9488; /* Calm Harmony Accent: Teal */
+            color: #0f766e; /* Calm Harmony Accent: Darker Teal */
+            font-weight: 600;
+        }
+        .nav-link:hover {
+            background-color: #E7E5E4;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background-color: #ffffff;
+        }
+        .accordion-button.active + .accordion-content {
+            max-height: 2500px; /* Increased max-height for more content */
+            transition: max-height 0.7s ease-in;
+        }
+        .accordion-button.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .content-block h4 {
+            font-weight: 600;
+            color: #0f766e;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .content-block h5 {
+            font-weight: 600;
+            color: #115e59;
+            margin-top: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        .content-block ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 1rem;
+        }
+        .content-block code {
+            background-color: #e7e5e4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #be123c; /* Calm Harmony Accent: Rose */
+        }
+        /* Style for the verb table */
+        #verb-table thead th {
+            position: sticky;
+            top: 0;
+            background-color: #f3f4f6;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 bg-stone-100 border-r border-stone-200 flex-shrink-0">
+            <div class="p-4 md:p-6 sticky top-0">
+                <h2 class="text-xl font-bold text-teal-800 mb-6">📝 Cẩm Nang Ngữ Pháp</h2>
+                <nav id="main-nav" class="space-y-2">
+                    <a href="#" data-target="tenses" class="nav-link active flex items-center p-3 rounded-lg">
+                        <span class="mr-3 text-lg">🕒</span>
+                        Các Thì
+                    </a>
+                    <a href="#" data-target="pos" class="nav-link flex items-center p-3 rounded-lg">
+                        <span class="mr-3 text-lg">🧩</span>
+                        Loại Từ
+                    </a>
+                    <a href="#" data-target="structures" class="nav-link flex items-center p-3 rounded-lg">
+                        <span class="mr-3 text-lg">🏗️</span>
+                        Cấu Trúc Câu
+                    </a>
+                    <a href="#" data-target="verbs" class="nav-link flex items-center p-3 rounded-lg">
+                        <span class="mr-3 text-lg">📚</span>
+                        Động từ Bất quy tắc
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-4 md:p-8 lg:p-10 overflow-y-auto">
+            <!-- Tenses Section -->
+            <div id="tenses" class="content-section active">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">12 Thì Tiếng Anh Cơ Bản</h1>
+                <p class="text-gray-600 mb-8">Các thì là nền tảng để diễn tả hành động theo các mốc thời gian khác nhau. Nhấp vào mỗi thì để xem chi tiết công dụng, công thức và ví dụ minh họa.</p>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-teal-700 mb-4 border-b-2 border-teal-200 pb-2">Hiện Tại (Present)</h3>
+                        <div class="space-y-2" id="present-tenses"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-teal-700 mb-4 border-b-2 border-teal-200 pb-2">Quá Khứ (Past)</h3>
+                        <div class="space-y-2" id="past-tenses"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-teal-700 mb-4 border-b-2 border-teal-200 pb-2">Tương Lai (Future)</h3>
+                        <div class="space-y-2" id="future-tenses"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parts of Speech Section -->
+            <div id="pos" class="content-section">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Các Loại Từ Chính</h1>
+                 <p class="text-gray-600 mb-8">Hiểu rõ chức năng của từng loại từ sẽ giúp bạn xây dựng câu một cách chính xác. Khám phá từng loại từ để biết định nghĩa và cách dùng.</p>
+                <div class="space-y-2" id="pos-content"></div>
+            </div>
+
+            <!-- Sentence Structures Section -->
+            <div id="structures" class="content-section">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Các Cấu Trúc Câu Phổ Biến</h1>
+                <p class="text-gray-600 mb-8">Nắm vững các cấu trúc này sẽ giúp bạn diễn đạt ý tưởng phức tạp và đa dạng hơn. Cùng tìm hiểu cách hình thành và sử dụng chúng nhé.</p>
+                <div class="space-y-2" id="structures-content"></div>
+            </div>
+            
+            <!-- Irregular Verbs Section -->
+            <div id="verbs" class="content-section">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Bảng Động từ Bất quy tắc</h1>
+                <p class="text-gray-600 mb-8">Sử dụng ô tìm kiếm để tra cứu nhanh các động từ bất quy tắc thường gặp.</p>
+                <div class="mb-6">
+                    <input type="text" id="verb-search" placeholder="🔍 Tìm kiếm động từ (nguyên mẫu hoặc nghĩa)..." class="w-full p-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition">
+                </div>
+                <div class="h-[60vh] overflow-y-auto border border-stone-200 rounded-lg">
+                    <table id="verb-table" class="w-full text-left">
+                        <thead class="bg-stone-100">
+                            <tr>
+                                <th class="p-3 font-semibold">Nguyên mẫu (V1)</th>
+                                <th class="p-3 font-semibold">Quá khứ đơn (V2)</th>
+                                <th class="p-3 font-semibold">Quá khứ phân từ (V3)</th>
+                                <th class="p-3 font-semibold">Nghĩa</th>
+                            </tr>
+                        </thead>
+                        <tbody id="verb-table-body" class="bg-white">
+                            <!-- Verb rows will be inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Data for all grammar sections, fully populated
+    const grammarData = {
+        tenses: {
+            present: [
+                 {
+                    title: 'Hiện Tại Đơn (Present Simple)',
+                    content: `<p class="mb-4">Dùng để diễn tả các sự việc, hành động mang tính chất lặp đi lặp lại, thường xuyên xảy ra hoặc là các sự thật hiển nhiên, các thói quen hàng ngày.</p><div class="content-block"><h4>Cách sử dụng</h4><ul><li>Diễn tả thói quen, hành động xảy ra thường xuyên, lặp đi lặp lại: <i>She wakes up at 6 a.m. every day.</i></li><li>Diễn tả sự thật hiển nhiên, chân lý, sự thật khách quan: <i>The sun rises in the east.</i></li><li>Diễn tả lịch trình, thời gian biểu: <i>The train leaves at 8 p.m.</i></li><li>Diễn tả cảm xúc, suy nghĩ, trạng thái: <i>She likes chocolate.</i></li></ul><h4>Công thức</h4><p><strong>Đối với động từ "to be":</strong></p><ul><li>Khẳng định: <code>S + am/is/are</code> (Ví dụ: <i>I am a student.</i>)</li><li>Phủ định: <code>S + am/is/are + not</code> (Ví dụ: <i>He is not tired.</i>)</li><li>Nghi vấn: <code>Am/Is/Are + S + ...?</code> (Ví dụ: <i>Are you ready?</i>)</li></ul><p><strong>Đối với động từ thường:</strong></p><ul><li>Khẳng định: <code>S + V(s/es)</code> (Ví dụ: <i>She works in an office.</i>)</li><li>Phủ định: <code>S + do/does + not + V</code> (Ví dụ: <i>They do not (don't) play football.</i>)</li><li>Nghi vấn: <code>Do/Does + S + V?</code> (Ví dụ: <i>Does she like coffee?</i>)</li></ul></div>`
+                },
+                {
+                    title: 'Hiện Tại Tiếp Diễn (Present Continuous)',
+                    content: `<p class="mb-4">Dùng để diễn tả các hành động đang xảy ra ngay tại thời điểm nói hoặc xung quanh thời điểm nói, và các hành động có tính chất tạm thời.</p><div class="content-block"><h4>Cách sử dụng</h4><ul><li>Diễn tả hành động đang xảy ra ngay tại thời điểm nói: <i>She is reading a book now.</i></li><li>Diễn tả hành động xảy ra xung quanh thời điểm nói: <i>He is working on a new project these days.</i></li><li>Diễn tả kế hoạch, dự định trong tương lai gần: <i>We are meeting them tonight.</i></li></ul><h4>Công thức</h4><ul><li>Khẳng định: <code>S + am/is/are + V-ing</code></li><li>Phủ định: <code>S + am/is/are + not + V-ing</code></li><li>Nghi vấn: <code>Am/Is/Are + S + V-ing?</code></li></ul><h4>Dấu hiệu nhận biết</h4><p><code>now</code>, <code>right now</code>, <code>at the moment</code>, <code>currently</code>, <code>today</code>.</p></div>`
+                },
+                {
+                    title: 'Hiện Tại Hoàn Thành (Present Perfect)',
+                    content: `<p class="mb-4">Dùng để diễn tả hành động đã xảy ra trong quá khứ nhưng vẫn có liên quan đến hiện tại hoặc kết quả của hành động đó vẫn còn tác động đến hiện tại.</p><div class="content-block"><h4>Cách sử dụng</h4><ul><li>Hành động kéo dài từ quá khứ đến hiện tại: <i>They have lived in this city for ten years.</i></li><li>Trải nghiệm hoặc những điều đã từng làm: <i>I have visited Paris.</i></li><li>Hành động vừa mới xảy ra: <i>He has just left the office.</i></li></ul><h4>Công thức</h4><ul><li>Khẳng định: <code>S + have/has + V3/ed</code></li><li>Phủ định: <code>S + have/has + not + V3/ed</code></li><li>Nghi vấn: <code>Have/Has + S + V3/ed?</code></li></ul><h4>Dấu hiệu nhận biết</h4><p><code>just</code>, <code>already</code>, <code>yet</code>, <code>ever</code>, <code>never</code>, <code>for</code>, <code>since</code>, <code>recently</code>.</p></div>`
+                },
+                {
+                    title: 'Hiện Tại Hoàn Thành Tiếp Diễn (Present Perfect Continuous)',
+                    content: `<p class="mb-4">Nhấn mạnh tính chất kéo dài hoặc liên tục của hành động đã bắt đầu trong quá khứ, tiếp tục kéo dài đến hiện tại và có thể vẫn tiếp tục trong tương lai.</p><div class="content-block"><h4>Công thức</h4><ul><li>Khẳng định: <code>S + have/has + been + V-ing</code></li><li>Phủ định: <code>S + have/has + not + been + V-ing</code></li><li>Nghi vấn: <code>Have/Has + S + been + V-ing?</code></li></ul><h4>Dấu hiệu nhận biết</h4><p><code>for</code>, <code>since</code>, <code>lately</code>, <code>recently</code>, <code>all day</code>.</p><h4>Ví dụ</h4><p><i>I have been studying English for two years.</i></p></div>`
+                }
+            ],
+            past: [
+                 {
+                    title: 'Quá Khứ Đơn (Past Simple)',
+                    content: `<p class="mb-4">Diễn tả các hành động hoặc sự việc đã xảy ra và hoàn tất trong quá khứ.</p><div class="content-block"><h4>Cách sử dụng</h4><ul><li>Hành động đã xảy ra và kết thúc trong quá khứ: <i>She visited her grandmother last week.</i></li><li>Kể lại một chuỗi các sự kiện trong quá khứ: <i>He woke up, had breakfast, and then left for work.</i></li></ul><h4>Công thức</h4><ul><li>Khẳng định: <code>S + V-ed/V2</code></li><li>Phủ định: <code>S + did not (didn't) + V</code></li><li>Nghi vấn: <code>Did + S + V?</code></li></ul><h4>Dấu hiệu nhận biết</h4><p><code>yesterday</code>, <code>last week/month/year</code>, <code>ago</code>, <code>in 1990</code>.</p></div>`
+                },
+                 {
+                    title: 'Quá Khứ Tiếp Diễn (Past Continuous)',
+                    content: `<p class="mb-4">Diễn tả các hành động hoặc sự việc đang xảy ra tại một thời điểm cụ thể trong quá khứ.</p><div class="content-block"><h4>Cách sử dụng</h4><ul><li>Hành động đang xảy ra tại một thời điểm cụ thể trong quá khứ: <i>She was reading a book at 7 p.m. last night.</i></li><li>Hành động đang xảy ra thì bị hành động khác chen vào: <i>I was studying when the phone rang.</i></li><li>Hai hành động xảy ra đồng thời trong quá khứ: <i>While I was cooking, he was watching TV.</i></li></ul><h4>Công thức</h4><ul><li>Khẳng định: <code>S + was/were + V-ing</code></li><li>Phủ định: <code>S + was/were + not + V-ing</code></li><li>Nghi vấn: <code>Was/Were + S + V-ing?</code></li></ul><h4>Dấu hiệu nhận biết</h4><p><code>while</code>, <code>when</code>, <code>at that time</code>, <code>at 8 o'clock yesterday</code>.</p></div>`
+                },
+                 {
+                    title: 'Quá Khứ Hoàn Thành (Past Perfect)',
+                    content: `<p class="mb-4">Diễn tả một hành động đã xảy ra và hoàn tất trước một thời điểm hoặc hành động khác trong quá khứ.</p><div class="content-block"><h4>Công thức</h4><ul><li>Khẳng định: <code>S + had + V3/ed</code></li><li>Phủ định: <code>S + had not + V3/ed</code></li><li>Nghi vấn: <code>Had + S + V3/ed?</code></li></ul><h4>Dấu hiệu nhận biết</h4><p><code>by the time</code>, <code>before</code>, <code>after</code>, <code>when</code>, <code>already</code>.</p><h4>Ví dụ</h4><p><i>By the time we got to the station, the train had already departed.</i></p></div>`
+                },
+                 {
+                    title: 'Quá Khứ Hoàn Thành Tiếp Diễn (Past Perfect Continuous)',
+                    content: `<p class="mb-4">Nhấn mạnh sự kéo dài của một hành động đã bắt đầu và kéo dài đến một thời điểm hoặc sự kiện khác trong quá khứ.</p><div class="content-block"><h4>Công thức</h4><ul><li>Khẳng định: <code>S + had + been + V-ing</code></li><li>Phủ định: <code>S + had not + been + V-ing</code></li><li>Nghi vấn: <code>Had + S + been + V-ing?</code></li></ul><h4>Dấu hiệu nhận biết</h4><p><code>for</code>, <code>since</code>, <code>before</code>, <code>by the time</code>.</p><h4>Ví dụ</h4><p><i>She had been studying for hours before the exam started.</i></p></div>`
+                },
+            ],
+            future: [
+                {
+                    title: 'Tương Lai Đơn (Simple Future)',
+                    content: `<p class="mb-4">Diễn tả các hành động hoặc sự việc sẽ xảy ra trong tương lai.</p><div class="content-block"><h4>Cách sử dụng</h4><ul><li>Quyết định ngay tại thời điểm nói: <i>It's cold. I will close the window.</i></li><li>Dự đoán không có căn cứ: <i>I think it will rain tomorrow.</i></li><li>Lời hứa: <i>I will help you with your project.</i></li></ul><h4>Công thức</h4><ul><li>Khẳng định: <code>S + will + V</code></li><li>Phủ định: <code>S + will not (won't) + V</code></li><li>Nghi vấn: <code>Will + S + V?</code></li></ul><h4>Dấu hiệu nhận biết</h4><p><code>tomorrow</code>, <code>next week/month/year</code>, <code>in the future</code>.</p></div>`
+                },
+                {
+                    title: 'Tương Lai Gần (Near Future)',
+                    content: `<p class="mb-4">Diễn tả các kế hoạch đã được dự định, hoặc các dự đoán dựa trên tình hình hiện tại.</p><div class="content-block"><h4>Công thức</h4><ul><li>Khẳng định: <code>S + am/is/are + going to + V</code></li><li>Phủ định: <code>S + am/is/are + not + going to + V</code></li><li>Nghi vấn: <code>Am/Is/Are + S + going to + V?</code></li></ul><h4>Ví dụ</h4><p>Kế hoạch: <i>She is going to start a new job next month.</i></p><p>Dự đoán có căn cứ: <i>Look at those dark clouds. It is going to rain.</i></p></div>`
+                },
+                 {
+                    title: 'Tương Lai Hoàn Thành (Future Perfect)',
+                    content: `<p class="mb-4">Diễn tả một hành động sẽ hoàn tất trước một thời điểm hoặc một hành động khác trong tương lai.</p><div class="content-block"><h4>Công thức</h4><ul><li>Khẳng định: <code>S + will + have + V3/ed</code></li><li>Phủ định: <code>S + will not (won't) + have + V3/ed</code></li><li>Nghi vấn: <code>Will + S + have + V3/ed?</code></li></ul><h4>Dấu hiệu nhận biết</h4><p><code>by + time</code>, <code>by the time</code>, <code>by the end of...</code>.</p><h4>Ví dụ</h4><p><i>By next year, I will have completed my degree.</i></p></div>`
+                },
+                 {
+                    title: 'Tương Lai Hoàn Thành Tiếp Diễn (Future Perfect Continuous)',
+                    content: `<p class="mb-4">Nhấn mạnh tính liên tục của hành động sẽ kéo dài cho đến một thời điểm cụ thể trong tương lai.</p><div class="content-block"><h4>Công thức</h4><ul><li>Khẳng định: <code>S + will + have + been + V-ing</code></li><li>Phủ định: <code>S + will not (won't) + have + been + V-ing</code></li><li>Nghi vấn: <code>Will + S + have + been + V-ing?</code></li></ul><h4>Dấu hiệu nhận biết</h4><p><code>for + khoảng thời gian</code>, <code>by...</code></p><h4>Ví dụ</h4><p><i>By the end of this year, I will have been working here for ten years.</i></p></div>`
+                },
+            ]
+        },
+        pos: [ 
+            {
+                title: 'Danh từ (Noun)',
+                content: `<p class="mb-4">Là từ dùng để chỉ người, vật, sự việc, khái niệm, hoặc nơi chốn.</p>
+                <div class="content-block">
+                    <h4>Các loại danh từ</h4>
+                    <ul>
+                        <li><b>Danh từ chung (Common Nouns):</b> Chỉ chung một loại sự vật. Ví dụ: <i>book, city, dog</i>.</li>
+                        <li><b>Danh từ riêng (Proper Nouns):</b> Chỉ tên riêng và luôn viết hoa. Ví dụ: <i>John, London, Vietnam</i>.</li>
+                        <li><b>Danh từ đếm được (Countable Nouns):</b> Có thể đếm được. Ví dụ: <i>apple, car, chair</i>.</li>
+                        <li><b>Danh từ không đếm được (Uncountable Nouns):</b> Không thể đếm được. Ví dụ: <i>water, sugar, information, happiness</i>.</li>
+                        <li><b>Danh từ trừu tượng (Abstract Nouns):</b> Chỉ khái niệm, trạng thái, cảm xúc. Ví dụ: <i>love, freedom, courage</i>.</li>
+                        <li><b>Danh từ tập hợp (Collective Nouns):</b> Chỉ một nhóm. Ví dụ: <i>team, family, flock</i>.</li>
+                    </ul>
+                </div>`
+            },
+            {
+                title: 'Đại từ (Pronoun)',
+                content: `<p class="mb-4">Là từ dùng để thay thế cho danh từ hoặc cụm danh từ nhằm tránh lặp lại.</p>
+                <div class="content-block">
+                    <h4>Các loại đại từ</h4>
+                    <ul>
+                        <li><b>Đại từ nhân xưng (Personal):</b> I, you, he, she, it, we, they; me, you, him, her, it, us, them.</li>
+                        <li><b>Đại từ sở hữu (Possessive):</b> mine, yours, his, hers, ours, theirs.</li>
+                        <li><b>Đại từ phản thân (Reflexive):</b> myself, yourself, himself, herself, itself, ourselves, yourselves, themselves.</li>
+                        <li><b>Đại từ chỉ định (Demonstrative):</b> this, that, these, those.</li>
+                        <li><b>Đại từ quan hệ (Relative):</b> who, whom, whose, which, that.</li>
+                        <li><b>Đại từ bất định (Indefinite):</b> someone, anyone, everything, nothing.</li>
+                    </ul>
+                </div>`
+            },
+            {
+                title: 'Động từ (Verb)',
+                content: `<p class="mb-4">Là từ dùng để diễn tả hành động, trạng thái, hoặc quá trình của chủ ngữ.</p>
+                <div class="content-block">
+                    <h4>Các loại động từ</h4>
+                    <ul>
+                        <li><b>Động từ hành động (Action Verbs):</b> Diễn tả hành động cụ thể. Ví dụ: <i>run, eat, write</i>.</li>
+                        <li><b>Động từ trạng thái (Stative Verbs):</b> Diễn tả trạng thái, cảm xúc, nhận thức. Ví dụ: <i>be, seem, know, love</i>.</li>
+                        <li><b>Động từ liên kết (Linking Verbs):</b> Nối chủ ngữ với từ bổ nghĩa. Ví dụ: <i>be, become, feel</i>.</li>
+                        <li><b>Trợ động từ (Auxiliary Verbs):</b> Dùng để tạo các thì, câu hỏi, câu phủ định. Ví dụ: <i>be, have, do, will</i>.</li>
+                        <li><b>Động từ khiếm khuyết (Modal Verbs):</b> Diễn tả khả năng, sự cho phép, sự bắt buộc. Ví dụ: <i>can, must, should, may</i>.</li>
+                    </ul>
+                </div>`
+            },
+            {
+                title: 'Tính từ (Adjective)',
+                content: `<p class="mb-4">Là từ dùng để mô tả, bổ nghĩa cho danh từ hoặc đại từ.</p>
+                <div class="content-block">
+                    <h4>Vị trí & Chức năng</h4>
+                    <ul>
+                        <li><b>Trước danh từ:</b> Bổ nghĩa trực tiếp cho danh từ. (<i>She has a <b>beautiful</b> house.</i>)</li>
+                        <li><b>Sau động từ nối (linking verbs):</b> Mô tả chủ ngữ. (<i>She <b>is</b> very <b>kind</b>.</i>)</li>
+                    </ul>
+                </div>`
+            },
+            {
+                title: 'Trạng từ (Adverb)',
+                content: `<p class="mb-4">Là từ dùng để bổ nghĩa cho động từ, tính từ, một trạng từ khác, hoặc cả câu.</p>
+                <div class="content-block">
+                    <h4>Các loại trạng từ</h4>
+                    <ul>
+                        <li><b>Chỉ cách thức (Manner):</b> <i>quickly, slowly, carefully, well</i>.</li>
+                        <li><b>Chỉ thời gian (Time):</b> <i>now, yesterday, soon, later</i>.</li>
+                        <li><b>Chỉ nơi chốn (Place):</b> <i>here, there, everywhere, outside</i>.</li>
+                        <li><b>Chỉ tần suất (Frequency):</b> <i>always, usually, sometimes, never</i>.</li>
+                        <li><b>Chỉ mức độ (Degree):</b> <i>very, quite, too, enough</i>.</li>
+                    </ul>
+                </div>`
+            },
+            {
+                title: 'Giới từ (Preposition)',
+                content: `<p class="mb-4">Là từ dùng để liên kết các từ, thể hiện mối quan hệ về vị trí, thời gian, nguyên nhân, mục đích...</p>
+                <div class="content-block">
+                    <h4>Các loại giới từ</h4>
+                    <ul>
+                        <li><b>Chỉ vị trí:</b> <i>in, on, at, under, above, next to, between</i>.</li>
+                        <li><b>Chỉ thời gian:</b> <i>in, on, at, before, after, during, since, for</i>.</li>
+                        <li><b>Chỉ nguyên nhân, mục đích:</b> <i>because of, due to, for</i>.</li>
+                        <li><b>Chỉ cách thức, phương tiện:</b> <i>by, with, on</i>.</li>
+                    </ul>
+                    <h5>Ví dụ</h5>
+                    <p><i>The book is <b>on</b> the table.</i></p>
+                    <p><i>She will arrive <b>at</b> 6 o’clock.</i></p>
+                    <p><i>He goes to work <b>by</b> bus.</i></p>
+                </div>`
+            },
+            {
+                title: 'Liên từ (Conjunction)',
+                content: `<p class="mb-4">Là từ dùng để nối các từ, cụm từ, hoặc mệnh đề lại với nhau.</p>
+                <div class="content-block">
+                    <h4>Các loại liên từ</h4>
+                    <ul>
+                        <li><b>Liên từ kết hợp (Coordinating - FANBOYS):</b> <i>for, and, nor, but, or, yet, so</i>.</li>
+                        <li><b>Liên từ phụ thuộc (Subordinating):</b> <i>although, because, if, since, when, while</i>.</li>
+                        <li><b>Liên từ tương quan (Correlative):</b> <i>either...or, neither...nor, both...and, not only...but also</i>.</li>
+                    </ul>
+                </div>`
+            },
+            {
+                title: 'Lượng từ (Quantifier)',
+                content: `<p class="mb-4">Là từ dùng để chỉ số lượng, mức độ của danh từ.</p>
+                <div class="content-block">
+                    <h4>Cách sử dụng</h4>
+                    <ul>
+                        <li><b>Dùng với danh từ đếm được:</b> <i>a/an, a few, few, many, several, each, every, a number of</i>.</li>
+                        <li><b>Dùng với danh từ không đếm được:</b> <i>a little, little, much, a bit of, a great deal of</i>.</li>
+                        <li><b>Dùng với cả hai loại:</b> <i>some, any, no, all, most, enough, plenty of, a lot of/lots of</i>.</li>
+                    </ul>
+                </div>`
+            },
+        ],
+        structures: [ 
+            {
+                title: 'Câu So Sánh (Comparisons)',
+                content: `<p class="mb-4">Dùng để so sánh giữa hai hoặc nhiều đối tượng.</p>
+                <div class="content-block">
+                    <h4>So sánh ngang bằng</h4>
+                    <p><code>as + adj/adv + as</code><br><i>→ She is <b>as tall as</b> her brother.</i></p>
+                    <h4>So sánh hơn</h4>
+                    <p>Tính từ/trạng từ ngắn: <code>adj/adv-er + than</code><br><i>→ She is <b>taller than</b> her brother.</i></p>
+                    <p>Tính từ/trạng từ dài: <code>more + adj/adv + than</code><br><i>→ This book is <b>more interesting than</b> that one.</i></p>
+                    <h4>So sánh nhất</h4>
+                    <p>Tính từ/trạng từ ngắn: <code>the + adj/adv-est</code><br><i>→ She is <b>the tallest</b> in her class.</i></p>
+                    <p>Tính từ/trạng từ dài: <code>the most + adj/adv</code><br><i>→ This is <b>the most beautiful</b> place I’ve ever seen.</i></p>
+                    <h4>Lưu ý</h4>
+                    <p>Bất quy tắc: good -> better -> the best; bad -> worse -> the worst.</p>
+                    <p>So sánh gấp nhiều lần: <code>số lần + as + adj/adv + as</code> (<i>This room is <b>twice as large as</b> that one.</i>)</p>
+                </div>`
+            },
+            {
+                title: 'Câu Điều Kiện (Conditional Sentences)',
+                content: `<p class="mb-4">Dùng để diễn tả điều kiện và kết quả của điều kiện đó.</p>
+                <div class="content-block">
+                    <h4>Loại 0: Sự thật hiển nhiên</h4>
+                    <p><code>If + S + V(hiện tại đơn), S + V(hiện tại đơn)</code><br><i>→ If you heat water, it boils.</i></p>
+                    <h4>Loại 1: Có thể xảy ra ở hiện tại/tương lai</h4>
+                    <p><code>If + S + V(hiện tại đơn), S + will/can + V</code><br><i>→ If it rains, we will stay home.</i></p>
+                    <h4>Loại 2: Trái với hiện tại</h4>
+                    <p><code>If + S + V-ed (quá khứ đơn), S + would/could + V</code><br><i>→ If I were rich, I would travel the world.</i></p>
+                    <h4>Loại 3: Trái với quá khứ</h4>
+                    <p><code>If + S + had + V3/ed, S + would/could + have + V3/ed</code><br><i>→ If she had studied harder, she would have passed the exam.</i></p>
+                    <h4>Lưu ý: Đảo ngữ</h4>
+                    <p>Loại 1: <code>Should + S + V, ...</code></p>
+                    <p>Loại 2: <code>Were + S + (to V), ...</code></p>
+                    <p>Loại 3: <code>Had + S + V3/ed, ...</code></p>
+                </div>`
+            },
+            {
+                title: 'Câu Trực tiếp & Gián tiếp (Direct & Indirect Speech)',
+                content: `<p class="mb-4">Dùng để tường thuật lại lời nói của người khác.</p>
+                <div class="content-block">
+                    <h4>Câu trực tiếp (Direct)</h4>
+                    <p>Trích dẫn nguyên văn, đặt trong dấu ngoặc kép. Ví dụ: <i>He said, "I am tired."</i></p>
+                    <h4>Câu gián tiếp (Indirect/Reported)</h4>
+                    <p>Thuật lại ý nghĩa, không giữ nguyên văn.</p>
+                    <h5>Nguyên tắc chuyển đổi</h5>
+                    <ul>
+                        <li><b>Lùi thì động từ:</b> Hiện tại đơn → Quá khứ đơn; Hiện tại tiếp diễn → Quá khứ tiếp diễn; Quá khứ đơn → Quá khứ hoàn thành; will → would, can → could.</li>
+                        <li><b>Thay đổi đại từ:</b> I → he/she; my → his/her; we → they.</li>
+                        <li><b>Thay đổi trạng từ chỉ thời gian/nơi chốn:</b> today → that day; tomorrow → the next day; here → there; now → then.</li>
+                    </ul>
+                    <h5>Ví dụ</h5>
+                    <p>Direct: <i>She said, "I will call you tomorrow."</i></p>
+                    <p>Indirect: <i>She said that she would call me the next day.</i></p>
+                </div>`
+            },
+             {
+                title: 'Các Dạng Câu Hỏi (Question Types)',
+                content: `<p class="mb-4">Dùng để thu thập thông tin, xác nhận hoặc yêu cầu sự đồng ý.</p>
+                <div class="content-block">
+                    <h4>Câu hỏi Yes/No</h4>
+                    <p>Yêu cầu câu trả lời "có" hoặc "không". Bắt đầu bằng trợ động từ. <br><i>→ <b>Do</b> you like pizza?</i></p>
+                    <h4>Câu hỏi Wh- (Wh- Questions)</h4>
+                    <p>Yêu cầu thông tin chi tiết. Bắt đầu bằng <i>who, what, where, when, why, how</i>.<br><i>→ <b>Where</b> did you go yesterday?</i></p>
+                    <h4>Câu hỏi lựa chọn (Choice Questions)</h4>
+                    <p>Đưa ra sự lựa chọn, thường dùng 'or'.<br><i>→ Do you want tea <b>or</b> coffee?</i></p>
+                    <h4>Câu hỏi đuôi (Tag Questions)</h4>
+                    <p>Dùng để xác nhận thông tin. <br><i>→ You are coming, <b>aren't you?</b></i> <br><i>→ She doesn't like sushi, <b>does she?</b></i></p>
+                    <h4>Câu hỏi gián tiếp (Indirect Questions)</h4>
+                    <p>Hỏi một cách lịch sự hơn.<br><i>→ Could you tell me <b>where the station is?</b></i></p>
+                </div>`
+            },
+            { 
+                title: 'Câu Ước (Wish Sentences)',
+                content: `
+                    <p class="mb-4">Dùng để diễn tả mong muốn về một điều gì đó không có thật hoặc khó có thể xảy ra.</p>
+                    <div class="content-block">
+                        <h4>Ước cho tương lai</h4>
+                        <p><code>S + wish(es) + S + would/could + V</code><br><i>→ I <b>wish</b> you <b>would stop</b> making noise.</i></p>
+                        <h4>Ước trái với hiện tại</h4>
+                        <p><code>S + wish(es) + S + V-ed (quá khứ đơn)</code><br><i>→ I <b>wish</b> I <b>were</b> rich.</i></p>
+                        <h4>Ước trái với quá khứ</h4>
+                        <p><code>S + wish(es) + S + had + V3/ed</code><br><i>→ She <b>wishes</b> she <b>had studied</b> harder.</i></p>
+                    </div>`
+            }
+        ],
+        // UPDATED & EXPANDED: Irregular Verbs Data
+        irregularVerbs: [
+            { v1: 'arise', v2: 'arose', v3: 'arisen', meaning: 'phát sinh' },
+            { v1: 'awake', v2: 'awoke', v3: 'awoken', meaning: 'đánh thức' },
+            { v1: 'be', v2: 'was/were', v3: 'been', meaning: 'thì, là, ở' },
+            { v1: 'bear', v2: 'bore', v3: 'born/borne', meaning: 'mang, chịu đựng' },
+            { v1: 'beat', v2: 'beat', v3: 'beaten', meaning: 'đánh, đập' },
+            { v1: 'become', v2: 'became', v3: 'become', meaning: 'trở nên' },
+            { v1: 'begin', v2: 'began', v3: 'begun', meaning: 'bắt đầu' },
+            { v1: 'bend', v2: 'bent', v3: 'bent', meaning: 'bẻ cong' },
+            { v1: 'bet', v2: 'bet', v3: 'bet', meaning: 'cá cược' },
+            { v1: 'bind', v2: 'bound', v3: 'bound', meaning: 'buộc, trói' },
+            { v1: 'bite', v2: 'bit', v3: 'bitten', meaning: 'cắn' },
+            { v1: 'bleed', v2: 'bled', v3: 'bled', meaning: 'chảy máu' },
+            { v1: 'blow', v2: 'blew', v3: 'blown', meaning: 'thổi' },
+            { v1: 'break', v2: 'broke', v3: 'broken', meaning: 'làm vỡ' },
+            { v1: 'breed', v2: 'bred', v3: 'bred', meaning: 'nuôi, dạy' },
+            { v1: 'bring', v2: 'brought', v3: 'brought', meaning: 'mang đến' },
+            { v1: 'broadcast', v2: 'broadcast', v3: 'broadcast', meaning: 'phát sóng' },
+            { v1: 'build', v2: 'built', v3: 'built', meaning: 'xây dựng' },
+            { v1: 'burn', v2: 'burnt/burned', v3: 'burnt/burned', meaning: 'đốt, cháy' },
+            { v1: 'burst', v2: 'burst', v3: 'burst', meaning: 'nổ tung' },
+            { v1: 'buy', v2: 'bought', v3: 'bought', meaning: 'mua' },
+            { v1: 'cast', v2: 'cast', v3: 'cast', meaning: 'ném, quăng' },
+            { v1: 'catch', v2: 'caught', v3: 'caught', meaning: 'bắt, chụp' },
+            { v1: 'choose', v2: 'chose', v3: 'chosen', meaning: 'chọn' },
+            { v1: 'cling', v2: 'clung', v3: 'clung', meaning: 'bám vào' },
+            { v1: 'come', v2: 'came', v3: 'come', meaning: 'đến, đi đến' },
+            { v1: 'cost', v2: 'cost', v3: 'cost', meaning: 'có giá là' },
+            { v1: 'creep', v2: 'crept', v3: 'crept', meaning: 'bò, trườn' },
+            { v1: 'cut', v2: 'cut', v3: 'cut', meaning: 'cắt, chặt' },
+            { v1: 'deal', v2: 'dealt', v3: 'dealt', meaning: 'giao thiệp' },
+            { v1: 'dig', v2: 'dug', v3: 'dug', meaning: 'đào' },
+            { v1: 'do', v2: 'did', v3: 'done', meaning: 'làm' },
+            { v1: 'draw', v2: 'drew', v3: 'drawn', meaning: 'vẽ' },
+            { v1: 'dream', v2: 'dreamt/dreamed', v3: 'dreamt/dreamed', meaning: 'mơ' },
+            { v1: 'drink', v2: 'drank', v3: 'drunk', meaning: 'uống' },
+            { v1: 'drive', v2: 'drove', v3: 'driven', meaning: 'lái xe' },
+            { v1: 'eat', v2: 'ate', v3: 'eaten', meaning: 'ăn' },
+            { v1: 'fall', v2: 'fell', v3: 'fallen', meaning: 'ngã, rơi' },
+            { v1: 'feed', v2: 'fed', v3: 'fed', meaning: 'cho ăn' },
+            { v1: 'feel', v2: 'felt', v3: 'felt', meaning: 'cảm thấy' },
+            { v1: 'fight', v2: 'fought', v3: 'fought', meaning: 'chiến đấu' },
+            { v1: 'find', v2: 'found', v3: 'found', meaning: 'tìm thấy' },
+            { v1: 'flee', v2: 'fled', v3: 'fled', meaning: 'chạy trốn' },
+            { v1: 'fly', v2: 'flew', v3: 'flown', meaning: 'bay' },
+            { v1: 'forbid', v2: 'forbade', v3: 'forbidden', meaning: 'cấm' },
+            { v1: 'forecast', v2: 'forecast', v3: 'forecast', meaning: 'dự báo' },
+            { v1: 'forget', v2: 'forgot', v3: 'forgotten', meaning: 'quên' },
+            { v1: 'forgive', v2: 'forgave', v3: 'forgiven', meaning: 'tha thứ' },
+            { v1: 'freeze', v2: 'froze', v3: 'frozen', meaning: 'đông lại' },
+            { v1: 'get', v2: 'got', v3: 'got/gotten', meaning: 'có được' },
+            { v1: 'give', v2: 'gave', v3: 'given', meaning: 'cho' },
+            { v1: 'go', v2: 'went', v3: 'gone', meaning: 'đi' },
+            { v1: 'grind', v2: 'ground', v3: 'ground', meaning: 'xay, nghiền' },
+            { v1: 'grow', v2: 'grew', v3: 'grown', meaning: 'mọc, trồng' },
+            { v1: 'hang', v2: 'hung', v3: 'hung', meaning: 'treo' },
+            { v1: 'have', v2: 'had', v3: 'had', meaning: 'có' },
+            { v1: 'hear', v2: 'heard', v3: 'heard', meaning: 'nghe' },
+            { v1: 'hide', v2: 'hid', v3: 'hidden', meaning: 'giấu, trốn' },
+            { v1: 'hit', v2: 'hit', v3: 'hit', meaning: 'đánh, đụng' },
+            { v1: 'hold', v2: 'held', v3: 'held', meaning: 'cầm, nắm' },
+            { v1: 'hurt', v2: 'hurt', v3: 'hurt', meaning: 'làm đau' },
+            { v1: 'keep', v2: 'kept', v3: 'kept', meaning: 'giữ' },
+            { v1: 'kneel', v2: 'knelt/kneeled', v3: 'knelt/kneeled', meaning: 'quỳ gối' },
+            { v1: 'knit', v2: 'knit/knitted', v3: 'knit/knitted', meaning: 'đan' },
+            { v1: 'know', v2: 'knew', v3: 'known', meaning: 'biết' },
+            { v1: 'lay', v2: 'laid', v3: 'laid', meaning: 'đặt, để' },
+            { v1: 'lead', v2: 'led', v3: 'led', meaning: 'dẫn dắt' },
+            { v1: 'lean', v2: 'leant/leaned', v3: 'leant/leaned', meaning: 'dựa vào' },
+            { v1: 'leap', v2: 'leapt/leaped', v3: 'leapt/leaped', meaning: 'nhảy' },
+            { v1: 'learn', v2: 'learnt/learned', v3: 'learnt/learned', meaning: 'học' },
+            { v1: 'leave', v2: 'left', v3: 'left', meaning: 'rời đi' },
+            { v1: 'lend', v2: 'lent', v3: 'lent', meaning: 'cho mượn' },
+            { v1: 'let', v2: 'let', v3: 'let', meaning: 'để cho' },
+            { v1: 'lie', v2: 'lay', v3: 'lain', meaning: 'nằm' },
+            { v1: 'light', v2: 'lit/lighted', v3: 'lit/lighted', meaning: 'thắp sáng' },
+            { v1: 'lose', v2: 'lost', v3: 'lost', meaning: 'làm mất' },
+            { v1: 'make', v2: 'made', v3: 'made', meaning: 'làm, chế tạo' },
+            { v1: 'mean', v2: 'meant', v3: 'meant', meaning: 'có nghĩa là' },
+            { v1: 'meet', v2: 'met', v3: 'met', meaning: 'gặp' },
+            { v1: 'mistake', v2: 'mistook', v3: 'mistaken', meaning: 'phạm lỗi' },
+            { v1: 'overcome', v2: 'overcame', v3: 'overcome', meaning: 'vượt qua' },
+            { v1: 'pay', v2: 'paid', v3: 'paid', meaning: 'trả tiền' },
+            { v1: 'put', v2: 'put', v3: 'put', meaning: 'đặt, để' },
+            { v1: 'quit', v2: 'quit', v3: 'quit', meaning: 'bỏ' },
+            { v1: 'read', v2: 'read', v3: 'read', meaning: 'đọc' },
+            { v1: 'ride', v2: 'rode', v3: 'ridden', meaning: 'cưỡi' },
+            { v1: 'ring', v2: 'rang', v3: 'rung', meaning: 'rung chuông' },
+            { v1: 'rise', v2: 'rose', v3: 'risen', meaning: 'mọc lên' },
+            { v1: 'run', v2: 'ran', v3: 'run', meaning: 'chạy' },
+            { v1: 'saw', v2: 'sawed', v3: 'sawn/sawed', meaning: 'cưa' },
+            { v1: 'say', v2: 'said', v3: 'said', meaning: 'nói' },
+            { v1: 'see', v2: 'saw', v3: 'seen', meaning: 'nhìn, thấy' },
+            { v1: 'seek', v2: 'sought', v3: 'sought', meaning: 'tìm kiếm' },
+            { v1: 'sell', v2: 'sold', v3: 'sold', meaning: 'bán' },
+            { v1: 'send', v2: 'sent', v3: 'sent', meaning: 'gửi' },
+            { v1: 'set', v2: 'set', v3: 'set', meaning: 'đặt, để' },
+            { v1: 'sew', v2: 'sewed', v3: 'sewn/sewed', meaning: 'may, khâu' },
+            { v1: 'shake', v2: 'shook', v3: 'shaken', meaning: 'rung, lắc' },
+            { v1: 'shed', v2: 'shed', v3: 'shed', meaning: 'rơi, rụng' },
+            { v1: 'shine', v2: 'shone', v3: 'shone', meaning: 'chiếu sáng' },
+            { v1: 'shoot', v2: 'shot', v3: 'shot', meaning: 'bắn' },
+            { v1: 'show', v2: 'showed', v3: 'shown/showed', meaning: 'chỉ cho xem' },
+            { v1: 'shrink', v2: 'shrank', v3: 'shrunk', meaning: 'co lại' },
+            { v1: 'shut', v2: 'shut', v3: 'shut', meaning: 'đóng' },
+            { v1: 'sing', v2: 'sang', v3: 'sung', meaning: 'hát' },
+            { v1: 'sink', v2: 'sank', v3: 'sunk', meaning: 'chìm' },
+            { v1: 'sit', v2: 'sat', v3: 'sat', meaning: 'ngồi' },
+            { v1: 'sleep', v2: 'slept', v3: 'slept', meaning: 'ngủ' },
+            { v1: 'slide', v2: 'slid', v3: 'slid', meaning: 'trượt' },
+            { v1: 'smell', v2: 'smelt/smelled', v3: 'smelt/smelled', meaning: 'ngửi' },
+            { v1: 'sow', v2: 'sowed', v3: 'sown/sowed', meaning: 'gieo hạt' },
+            { v1: 'speak', v2: 'spoke', v3: 'spoken', meaning: 'nói' },
+            { v1: 'speed', v2: 'sped/speeded', v3: 'sped/speeded', meaning: 'tăng tốc' },
+            { v1: 'spell', v2: 'spelt/spelled', v3: 'spelt/spelled', meaning: 'đánh vần' },
+            { v1: 'spend', v2: 'spent', v3: 'spent', meaning: 'tiêu xài, dành' },
+            { v1: 'spill', v2: 'spilt/spilled', v3: 'spilt/spilled', meaning: 'làm đổ' },
+            { v1: 'spin', v2: 'spun', v3: 'spun', meaning: 'quay' },
+            { v1: 'spit', v2: 'spat', v3: 'spat', meaning: 'khạc, nhổ' },
+            { v1: 'split', v2: 'split', v3: 'split', meaning: 'chia ra' },
+            { v1: 'spoil', v2: 'spoilt/spoiled', v3: 'spoilt/spoiled', meaning: 'làm hỏng' },
+            { v1: 'spread', v2: 'spread', v3: 'spread', meaning: 'trải ra' },
+            { v1: 'spring', v2: 'sprang', v3: 'sprung', meaning: 'nhảy' },
+            { v1: 'stand', v2: 'stood', v3: 'stood', meaning: 'đứng' },
+            { v1: 'steal', v2: 'stole', v3: 'stolen', meaning: 'ăn cắp' },
+            { v1: 'stick', v2: 'stuck', v3: 'stuck', meaning: 'dán, dính' },
+            { v1: 'sting', v2: 'stung', v3: 'stung', meaning: 'châm, chích' },
+            { v1: 'stink', v2: 'stank', v3: 'stunk', meaning: 'bốc mùi hôi' },
+            { v1: 'strike', v2: 'struck', v3: 'struck/stricken', meaning: 'đánh, đình công' },
+            { v1: 'strive', v2: 'strove', v3: 'striven', meaning: 'phấn đấu' },
+            { v1: 'swear', v2: 'swore', v3: 'sworn', meaning: 'thề' },
+            { v1: 'sweep', v2: 'swept', v3: 'swept', meaning: 'quét' },
+            { v1: 'swell', v2: 'swelled', v3: 'swollen/swelled', meaning: 'phồng, sưng' },
+            { v1: 'swim', v2: 'swam', v3: 'swum', meaning: 'bơi' },
+            { v1: 'swing', v2: 'swung', v3: 'swung', meaning: 'đu, lắc' },
+            { v1: 'take', v2: 'took', v3: 'taken', meaning: 'lấy, mang' },
+            { v1: 'teach', v2: 'taught', v3: 'taught', meaning: 'dạy' },
+            { v1: 'tear', v2: 'tore', v3: 'torn', meaning: 'xé' },
+            { v1: 'tell', v2: 'told', v3: 'told', meaning: 'kể, bảo' },
+            { v1: 'think', v2: 'thought', v3: 'thought', meaning: 'nghĩ' },
+            { v1: 'throw', v2: 'threw', v3: 'thrown', meaning: 'ném' },
+            { v1: 'thrust', v2: 'thrust', v3: 'thrust', meaning: 'xô, đẩy' },
+            { v1: 'tread', v2: 'trod', v3: 'trodden/trod', meaning: 'dẫm, đạp' },
+            { v1: 'understand', v2: 'understood', v3: 'understood', meaning: 'hiểu' },
+            { v1: 'undergo', v2: 'underwent', v3: 'undergone', meaning: 'trải qua' },
+            { v1: 'upset', v2: 'upset', v3: 'upset', meaning: 'làm buồn' },
+            { v1: 'wake', v2: 'woke', v3: 'woken', meaning: 'thức dậy' },
+            { v1: 'wear', v2: 'wore', v3: 'worn', meaning: 'mặc' },
+            { v1: 'weave', v2: 'wove', v3: 'woven', meaning: 'dệt' },
+            { v1: 'weep', v2: 'wept', v3: 'wept', meaning: 'khóc' },
+            { v1: 'win', v2: 'won', v3: 'won', meaning: 'thắng' },
+            { v1: 'wind', v2: 'wound', v3: 'wound', meaning: 'quấn, cuộn' },
+            { v1: 'withdraw', v2: 'withdrew', v3: 'withdrawn', meaning: 'rút lui, rút tiền' },
+            { v1: 'write', v2: 'wrote', v3: 'written', meaning: 'viết' },
+        ]
+    };
+
+    // --- SCRIPT TO BUILD THE UI ---
+
+    function createAccordionItem(item) {
+        return `
+            <div class="border border-stone-200 rounded-lg bg-stone-50 shadow-sm mb-2">
+                <button class="accordion-button w-full flex justify-between items-center text-left p-4 font-semibold text-gray-700 hover:bg-stone-200 transition-colors duration-300 rounded-t-lg">
+                    <span>${item.title}</span>
+                    <svg class="accordion-icon w-5 h-5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content border-t border-stone-200 rounded-b-lg">
+                    <div class="p-5 text-gray-600 leading-relaxed">
+                        ${item.content}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    const presentTensesContainer = document.getElementById('present-tenses');
+    const pastTensesContainer = document.getElementById('past-tenses');
+    const futureTensesContainer = document.getElementById('future-tenses');
+    const posContainer = document.getElementById('pos-content');
+    const structuresContainer = document.getElementById('structures-content');
+
+    // Populate all sections
+    grammarData.tenses.present.forEach(tense => presentTensesContainer.innerHTML += createAccordionItem(tense));
+    grammarData.tenses.past.forEach(tense => pastTensesContainer.innerHTML += createAccordionItem(tense));
+    grammarData.tenses.future.forEach(tense => futureTensesContainer.innerHTML += createAccordionItem(tense));
+    grammarData.pos.forEach(item => posContainer.innerHTML += createAccordionItem(item));
+    grammarData.structures.forEach(item => structuresContainer.innerHTML += createAccordionItem(item));
+
+    // Accordion functionality
+    const accordionButtons = document.querySelectorAll('.accordion-button');
+    accordionButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const currentlyActiveButton = button.closest('.space-y-2').querySelector('.accordion-button.active');
+            if (currentlyActiveButton && currentlyActiveButton !== button) {
+                currentlyActiveButton.classList.remove('active');
+            }
+            button.classList.toggle('active');
+        });
+    });
+
+    // Main navigation functionality
+    const navLinks = document.querySelectorAll('.nav-link');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            
+            const targetId = link.getAttribute('data-target');
+            contentSections.forEach(section => {
+                section.classList.remove('active');
+                if (section.id === targetId) {
+                    section.classList.add('active');
+                }
+            });
+            document.querySelector('main').scrollTop = 0;
+        });
+    });
+
+    // Irregular Verbs Table Functionality
+    const verbTableBody = document.getElementById('verb-table-body');
+    const verbSearchInput = document.getElementById('verb-search');
+    
+    // Sort verbs alphabetically by V1
+    const sortedVerbs = grammarData.irregularVerbs.sort((a, b) => a.v1.localeCompare(b.v1));
+
+    function populateVerbTable(verbs) {
+        verbTableBody.innerHTML = ''; // Clear existing rows
+        if (verbs.length === 0) {
+            verbTableBody.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-gray-500">Không tìm thấy động từ nào.</td></tr>';
+            return;
+        }
+        verbs.forEach(verb => {
+            const row = `
+                <tr class="border-b border-stone-200 hover:bg-stone-50">
+                    <td class="p-3"><code>${verb.v1}</code></td>
+                    <td class="p-3"><code>${verb.v2}</code></td>
+                    <td class="p-3"><code>${verb.v3}</code></td>
+                    <td class="p-3">${verb.meaning}</td>
+                </tr>
+            `;
+            verbTableBody.innerHTML += row;
+        });
+    }
+
+    verbSearchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredVerbs = sortedVerbs.filter(verb => 
+            verb.v1.toLowerCase().includes(searchTerm) || 
+            verb.v2.toLowerCase().includes(searchTerm) || 
+            verb.v3.toLowerCase().includes(searchTerm) || 
+            verb.meaning.toLowerCase().includes(searchTerm)
+        );
+        populateVerbTable(filteredVerbs);
+    });
+
+    // Initial population of the verb table
+    populateVerbTable(sortedVerbs);
+});
+</script>
+
+</body>
+</html>
